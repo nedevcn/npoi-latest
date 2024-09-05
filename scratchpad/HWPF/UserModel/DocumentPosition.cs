@@ -15,30 +15,17 @@
    limitations under the License.
 ==================================================================== */
 
-namespace NPOI.HWPF.Model
+namespace NPOI.HWPF.UserModel
 {
-    using System;
-    public class UnhandledDataStructure
+
+    public class DocumentPosition
+      : Range
     {
-        byte[] _buf;
-
-        public UnhandledDataStructure(byte[] buf, int offset, int length)
+        public DocumentPosition(HWPFDocument doc, int pos):base(pos, pos, doc)
         {
-            //    Console.WriteLine("Yes, using my code");
-            _buf = new byte[length];
-            if (offset + length > buf.Length)
-            {
-                throw new IndexOutOfRangeException("buffer length is " + buf.Length +
-                                                    "but code is trying to read " + length + " from offset " + offset);
-            }
-            Array.Copy(buf, offset, _buf, 0, length);
+            
         }
 
-        internal byte[] GetBuf()
-        {
-            return _buf;
-        }
     }
 }
-
 

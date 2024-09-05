@@ -60,7 +60,7 @@ namespace NPOI.HWPF
         protected byte[] _mainStream;
 
         protected HWPFDocumentCore()
-            : base(null, null)
+            : base((DirectoryNode)null)
         {
 
         }
@@ -149,12 +149,12 @@ namespace NPOI.HWPF
         /// <summary>
         /// the range which covers the whole of the document, but excludes any headers and footers.
         /// </summary>
-        public abstract Range GetRange();
+        public abstract NPOI.HWPF.UserModel.Range GetRange();
 
         /// <summary>
         /// the range that covers all text in the file, including main text,footnotes, headers and comments
         /// </summary>
-        public abstract Range GetOverallRange();
+        public abstract NPOI.HWPF.UserModel.Range GetOverallRange();
 
             /**
      * Returns document text, i.e. text information from all text pieces,

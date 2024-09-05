@@ -384,9 +384,9 @@ namespace NPOI.HWPF
          *  file, including main text, footnotes, headers
          *  and comments
          */
-        public override Range GetOverallRange()
+        public override NPOI.HWPF.UserModel.Range GetOverallRange()
         {
-            return new Range(0, _text.Length, this);
+            return new NPOI.HWPF.UserModel.Range(0, _text.Length, this);
         }
         /**
  * Array of {@link SubdocumentType}s ordered by document position and FIB
@@ -401,12 +401,12 @@ namespace NPOI.HWPF
          * Returns the range which covers the whole of the
          *  document, but excludes any headers and footers.
          */
-        public override Range GetRange()
+        public override NPOI.HWPF.UserModel.Range GetRange()
         {
             return GetRange(SubdocumentType.MAIN);
         }
 
-        private Range GetRange(SubdocumentType subdocument)
+        private NPOI.HWPF.UserModel.Range GetRange(SubdocumentType subdocument)
         {
             int startCp = 0;
             foreach (SubdocumentType previos in ORDERED)
@@ -414,7 +414,7 @@ namespace NPOI.HWPF
                 int length = GetFileInformationBlock()
                         .GetSubdocumentTextStreamLength(previos);
                 if (subdocument == previos)
-                    return new Range(startCp, startCp + length, this);
+                    return new NPOI.HWPF.UserModel.Range(startCp, startCp + length, this);
                 startCp += length;
             }
             throw new NotSupportedException(
@@ -425,7 +425,7 @@ namespace NPOI.HWPF
         /**
          * Returns the range which covers all the Footnotes.
          */
-        public Range GetFootnoteRange()
+        public NPOI.HWPF.UserModel.Range GetFootnoteRange()
         {
             return GetRange(SubdocumentType.FOOTNOTE);
         }
@@ -433,7 +433,7 @@ namespace NPOI.HWPF
         /**
          * Returns the range which covers all the Endnotes.
         */
-        public Range GetEndnoteRange()
+        public NPOI.HWPF.UserModel.Range GetEndnoteRange()
         {
             return GetRange(SubdocumentType.ENDNOTE);
         }
@@ -441,7 +441,7 @@ namespace NPOI.HWPF
         /**
          * Returns the range which covers all the Endnotes.
         */
-        public Range GetCommentsRange()
+        public NPOI.HWPF.UserModel.Range GetCommentsRange()
         {
             return GetRange(SubdocumentType.ANNOTATION);
         }
@@ -450,7 +450,7 @@ namespace NPOI.HWPF
  * 
  * @return the {@link Range} which covers all textboxes.
  */
-        public Range GetMainTextboxRange()
+        public NPOI.HWPF.UserModel.Range GetMainTextboxRange()
         {
             return GetRange(SubdocumentType.TEXTBOX);
         }
@@ -459,7 +459,7 @@ namespace NPOI.HWPF
          * A header story Contains a header, footer, end note
          *  separators and footnote separators.
          */
-        public Range GetHeaderStoryRange()
+        public NPOI.HWPF.UserModel.Range GetHeaderStoryRange()
         {
             return GetRange(SubdocumentType.HEADER);
         }
@@ -763,7 +763,7 @@ namespace NPOI.HWPF
 
         public void Delete(int start, int length)
         {
-            Range r = new Range(start, start + length, this);
+            NPOI.HWPF.UserModel.Range r = new NPOI.HWPF.UserModel.Range(start, start + length, this);
             r.Delete();
         }
         /**
@@ -808,6 +808,16 @@ namespace NPOI.HWPF
         public Fields GetFields()
         {
             return _fields;
+        }
+
+        public override void Write()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Write(FileInfo newFile)
+        {
+            throw new NotImplementedException();
         }
     }
 

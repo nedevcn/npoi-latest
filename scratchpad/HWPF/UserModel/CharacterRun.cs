@@ -592,10 +592,6 @@ namespace NPOI.HWPF.UserModel
         {
             if (IsSymbol())
             {
-                if(_doc.GetFontTable() == null)
-                {
-                    return null;
-                }
                 Ffn[] fontNames = _doc.GetFontTable().GetFontNames();
 
                 if (fontNames.Length <= _props.GetFtcSym())

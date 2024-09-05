@@ -142,7 +142,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessBookmarks(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range range, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range range, int currentTableLevel,
                 IList<Bookmark> rangeBookmarks)
         {
             ProcessCharacters(wordDocument, currentTableLevel, range, currentBlock);
@@ -168,7 +168,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessDocumentPart(HWPFDocumentCore wordDocument,
-                Range range)
+                NPOI.HWPF.UserModel.Range range)
         {
             base.ProcessDocumentPart(wordDocument, range);
             AfterProcess();
@@ -182,18 +182,18 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessEndnoteAutonumbered(HWPFDocument wordDocument,
-                int noteIndex, XmlElement block, Range endnoteTextRange)
+                int noteIndex, XmlElement block, NPOI.HWPF.UserModel.Range endnoteTextRange)
         {
             ProcessNote(wordDocument, block, endnoteTextRange);
         }
         protected override void ProcessFootnoteAutonumbered(HWPFDocument wordDocument,
-                int noteIndex, XmlElement block, Range footnoteTextRange)
+                int noteIndex, XmlElement block, NPOI.HWPF.UserModel.Range footnoteTextRange)
         {
             ProcessNote(wordDocument, block, footnoteTextRange);
         }
 
         protected override void ProcessHyperlink(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range textRange, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel,
                 String hyperlink)
         {
             ProcessCharacters(wordDocument, currentTableLevel, textRange,
@@ -218,7 +218,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected void ProcessNote(HWPFDocument wordDocument, XmlElement block,
-                Range noteTextRange)
+                NPOI.HWPF.UserModel.Range noteTextRange)
         {
             int noteIndex;
             lock (objCounters)
@@ -311,7 +311,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessPageref(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range textRange, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel,
                 String pageref)
         {
             ProcessCharacters(wordDocument, currentTableLevel, textRange,

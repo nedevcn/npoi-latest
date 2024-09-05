@@ -86,7 +86,7 @@ namespace NPOI.HWPF.Extractor
                 // Extract using the model code
                 try
                 {
-                    Range r = doc.GetRange();
+                    var r = doc.GetRange();
 
                     ret = WordExtractor.GetParagraphText(r);
                 }

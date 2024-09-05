@@ -243,8 +243,8 @@ namespace NPOI.HWPF.UserModel
                         .GetChildById(EscherTertiaryOptRecord.RECORD_ID);
                 if (escherTertiaryOptRecord == null)
                     return defaultValue;
-
-                EscherSimpleProperty escherProperty = (EscherSimpleProperty)((EscherOptRecord)escherTertiaryOptRecord)
+                
+                EscherSimpleProperty escherProperty = (EscherSimpleProperty)((AbstractEscherOptRecord)escherTertiaryOptRecord)
                         .Lookup(propertyId);
                 if (escherProperty == null)
                     return defaultValue;

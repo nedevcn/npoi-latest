@@ -89,7 +89,7 @@ namespace NPOI.HWPF.Extractor
                 // Extract using the model code
                 try
                 {
-                    Range r = doc.GetRange();
+                    NPOI.HWPF.UserModel.Range r = doc.GetRange();
 
                     ret = GetParagraphText(r);
                 }
@@ -109,7 +109,7 @@ namespace NPOI.HWPF.Extractor
         {
             get
             {
-                Range r = doc.GetFootnoteRange();
+                NPOI.HWPF.UserModel.Range r = doc.GetFootnoteRange();
 
                 return GetParagraphText(r);
             }
@@ -118,7 +118,7 @@ namespace NPOI.HWPF.Extractor
         {
             get
             {
-                Range r = doc.GetMainTextboxRange();
+                NPOI.HWPF.UserModel.Range r = doc.GetMainTextboxRange();
 
                 return GetParagraphText(r);
             }
@@ -127,7 +127,7 @@ namespace NPOI.HWPF.Extractor
         {
             get
             {
-                Range r = doc.GetEndnoteRange();
+                NPOI.HWPF.UserModel.Range r = doc.GetEndnoteRange();
 
                 return GetParagraphText(r);
             }
@@ -137,13 +137,13 @@ namespace NPOI.HWPF.Extractor
         {
             get
             {
-                Range r = doc.GetCommentsRange();
+                NPOI.HWPF.UserModel.Range r = doc.GetCommentsRange();
 
                 return GetParagraphText(r);
             }
         }
 
-        public static String[] GetParagraphText(Range r)
+        public static String[] GetParagraphText(NPOI.HWPF.UserModel.Range r)
         {
             String[] ret;
             ret = new String[r.NumParagraphs];
@@ -315,7 +315,7 @@ namespace NPOI.HWPF.Extractor
          */
         public static String StripFields(String text)
         {
-            return Range.StripFields(text);
+            return NPOI.HWPF.UserModel.Range.StripFields(text);
         }
     }
 }

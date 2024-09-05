@@ -17,27 +17,41 @@
 
 namespace NPOI.HWPF.Model
 {
+
+    using NPOI.HWPF.SPRM;
     using System;
-    public class UnhandledDataStructure
+
+
+    public class CachedPropertyNode
+      : PropertyNode
     {
-        byte[] _buf;
+        protected object _propCache;
 
-        public UnhandledDataStructure(byte[] buf, int offset, int length)
+        public CachedPropertyNode(int start, int end, SprmBuffer buf)
+            : base(start, end, buf)
         {
-            //    Console.WriteLine("Yes, using my code");
-            _buf = new byte[length];
-            if (offset + length > buf.Length)
-            {
-                throw new IndexOutOfRangeException("buffer length is " + buf.Length +
-                                                    "but code is trying to read " + length + " from offset " + offset);
-            }
-            Array.Copy(buf, offset, _buf, 0, length);
+
         }
 
-        internal byte[] GetBuf()
+        protected void FillCache(Object ref1)
         {
-            return _buf;
+            _propCache = ref1;
         }
+
+        protected Object GetCacheContents()
+        {
+            return _propCache == null ? null : _propCache;
+        }
+
+        /**
+         * @return This property's property in compressed form.
+         */
+        public SprmBuffer GetSprmBuf()
+        {
+            return (SprmBuffer)_buf;
+        }
+
+
     }
 }
 

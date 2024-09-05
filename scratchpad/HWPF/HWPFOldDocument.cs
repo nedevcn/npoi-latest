@@ -113,12 +113,12 @@ namespace NPOI.HWPF
                     _fib.GetFcMin(), tpt
             );
         }
-        public override Range GetOverallRange()
+        public override NPOI.HWPF.UserModel.Range GetOverallRange()
         {
             // Life is easy when we have no footers, headers or unicode!
-            return new Range(0, _fib.GetFcMac() - _fib.GetFcMin(), this);
+            return new NPOI.HWPF.UserModel.Range(0, _fib.GetFcMac() - _fib.GetFcMin(), this);
         }
-        public override Range GetRange()
+        public override NPOI.HWPF.UserModel.Range GetRange()
         {
             return GetOverallRange();
         }
@@ -142,6 +142,16 @@ namespace NPOI.HWPF
         public override void Write(Stream out1)
         {
             throw new InvalidOperationException("Writing is not available for the older file formats");
+        }
+
+        public override void Write()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Write(FileInfo newFile)
+        {
+            throw new NotImplementedException();
         }
     }
 }

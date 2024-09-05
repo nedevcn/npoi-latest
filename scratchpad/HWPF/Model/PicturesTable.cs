@@ -209,7 +209,7 @@ namespace NPOI.HWPF.Model
         {
             List<Picture> pictures = new List<Picture>();
 
-            Range range = _document.GetOverallRange();
+            UserModel.Range range = _document.GetOverallRange();
             for (int i = 0; i < range.NumCharacterRuns; i++)
             {
                 CharacterRun run = range.GetCharacterRun(i);

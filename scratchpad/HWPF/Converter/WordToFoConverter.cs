@@ -163,7 +163,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessBookmarks(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range range, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range range, int currentTableLevel,
                 IList<Bookmark> rangeBookmarks)
         {
             XmlElement parent = currentBlock;
@@ -211,7 +211,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessEndnoteAutonumbered(HWPFDocument wordDocument,
-                int noteIndex, XmlElement block, Range endnoteTextRange)
+                int noteIndex, XmlElement block, NPOI.HWPF.UserModel.Range endnoteTextRange)
         {
             String textIndex;// = (internalLinkCounter.incrementAndGet()).ToString();
             lock (objLinkCounter)
@@ -243,7 +243,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessFootnoteAutonumbered(HWPFDocument wordDocument,
-                int noteIndex, XmlElement block, Range footnoteTextRange)
+                int noteIndex, XmlElement block, NPOI.HWPF.UserModel.Range footnoteTextRange)
         {
             String textIndex;// = (internalLinkCounter.incrementAndGet()).ToString();
             lock (objLinkCounter)
@@ -282,7 +282,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessHyperlink(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range textRange, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel,
                 String hyperlink)
         {
             XmlElement basicLink = foDocumentFacade
@@ -376,7 +376,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected override void ProcessPageref(HWPFDocumentCore hwpfDocument,
-                XmlElement currentBlock, Range textRange, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel,
                 String pageref)
         {
             XmlElement basicLink = foDocumentFacade

@@ -161,7 +161,7 @@ namespace NPOI.HWPF.Converter
             span.AppendChild(textNode);
         }
 
-        protected override void ProcessBookmarks(HWPFDocumentCore wordDocument, XmlElement currentBlock, Range range, int currentTableLevel, IList<Bookmark> rangeBookmarks)
+        protected override void ProcessBookmarks(HWPFDocumentCore wordDocument, XmlElement currentBlock, NPOI.HWPF.UserModel.Range range, int currentTableLevel, IList<Bookmark> rangeBookmarks)
         {
             XmlElement parent = currentBlock;
             foreach (Bookmark bookmark in rangeBookmarks)
@@ -190,7 +190,7 @@ namespace NPOI.HWPF.Converter
             if (!string.IsNullOrEmpty(summaryInformation.Comments))
                 htmlDocumentFacade.AddDescription(summaryInformation.Comments);
         }
-        public void processDocumentPart(HWPFDocumentCore wordDocument, Range range)
+        public void processDocumentPart(HWPFDocumentCore wordDocument, NPOI.HWPF.UserModel.Range range)
         {
             base.ProcessDocumentPart(wordDocument, range);
             AfterProcess();
@@ -201,12 +201,12 @@ namespace NPOI.HWPF.Converter
             block.AppendChild(img);
         }
 
-        protected override void ProcessEndnoteAutonumbered(HWPFDocument wordDocument, int noteIndex, XmlElement block, Range endnoteTextRange)
+        protected override void ProcessEndnoteAutonumbered(HWPFDocument wordDocument, int noteIndex, XmlElement block, NPOI.HWPF.UserModel.Range endnoteTextRange)
         {
             ProcessNoteAutonumbered(wordDocument, "end", noteIndex, block, endnoteTextRange);
         }
 
-        private void ProcessNoteAutonumbered(HWPFDocument wordDocument, string type, int noteIndex, XmlElement block, Range noteTextRange)
+        private void ProcessNoteAutonumbered(HWPFDocument wordDocument, string type, int noteIndex, XmlElement block, NPOI.HWPF.UserModel.Range noteTextRange)
         {
             String textIndex = (noteIndex + 1).ToString();
             String textIndexClass = htmlDocumentFacade.GetOrCreateCssClass("a", "a", "vertical-align:super;font-size:smaller;");
@@ -251,12 +251,12 @@ namespace NPOI.HWPF.Converter
             }
         }
 
-        protected override void ProcessFootnoteAutonumbered(HWPFDocument wordDocument, int noteIndex, XmlElement block, Range footnoteTextRange)
+        protected override void ProcessFootnoteAutonumbered(HWPFDocument wordDocument, int noteIndex, XmlElement block, NPOI.HWPF.UserModel.Range footnoteTextRange)
         {
             ProcessNoteAutonumbered(wordDocument, "foot", noteIndex, block, footnoteTextRange);
         }
 
-        protected override void ProcessHyperlink(HWPFDocumentCore wordDocument, XmlElement currentBlock, Range textRange, int currentTableLevel, string hyperlink)
+        protected override void ProcessHyperlink(HWPFDocumentCore wordDocument, XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel, string hyperlink)
         {
             XmlElement basicLink = htmlDocumentFacade.CreateHyperlink(hyperlink);
             currentBlock.AppendChild(basicLink);
@@ -387,7 +387,7 @@ namespace NPOI.HWPF.Converter
             flow.AppendChild(htmlDocumentFacade.CreateLineBreak());
         }
 
-        protected override void ProcessPageref(HWPFDocumentCore wordDocument, XmlElement currentBlock, Range textRange, int currentTableLevel, string pageref)
+        protected override void ProcessPageref(HWPFDocumentCore wordDocument, XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel, string pageref)
         {
             XmlElement basicLink = htmlDocumentFacade.CreateHyperlink("#" + pageref);
             currentBlock.AppendChild(basicLink);

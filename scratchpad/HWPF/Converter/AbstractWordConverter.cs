@@ -217,10 +217,10 @@ namespace NPOI.HWPF.Converter
          * bookmark.
          */
         protected abstract void ProcessBookmarks(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range range, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range range, int currentTableLevel,
                 IList<Bookmark> rangeBookmarks);
 
-        protected bool ProcessCharacters(HWPFDocumentCore wordDocument,  int currentTableLevel, Range range, XmlElement block)
+        protected bool ProcessCharacters(HWPFDocumentCore wordDocument,  int currentTableLevel, NPOI.HWPF.UserModel.Range range, XmlElement block)
         {
             if (range == null)
                 return false;
@@ -283,7 +283,7 @@ namespace NPOI.HWPF.Converter
             {
                 if (structure.Start != previous)
                 {
-                    Range subrange = new Range(previous, structure.Start, range);
+                    NPOI.HWPF.UserModel.Range subrange = new NPOI.HWPF.UserModel.Range(previous, structure.Start, range);
                     //{
                     //    public String toString()
                     //    {
@@ -312,7 +312,7 @@ namespace NPOI.HWPF.Converter
                     try
                     {
                         int end = Math.Min(range.EndOffset, structure.End);
-                        Range subrange = new Range(structure.Start, end, range);
+                        NPOI.HWPF.UserModel.Range subrange = new NPOI.HWPF.UserModel.Range(structure.Start, end, range);
                         /*{
                             public String toString()
                             {
@@ -354,7 +354,7 @@ namespace NPOI.HWPF.Converter
 
                 if (previous < range.EndOffset)
                 {
-                    Range subrange = new Range(previous, range.EndOffset, range);
+                    NPOI.HWPF.UserModel.Range subrange = new NPOI.HWPF.UserModel.Range(previous, range.EndOffset, range);
                     /*{
                         @Override
                         public String toString()
@@ -513,7 +513,7 @@ namespace NPOI.HWPF.Converter
             return haveAnyText;
         }
         protected void ProcessDeadField(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range range, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range range, int currentTableLevel,
                 int beginMark, int separatorMark, int endMark)
         {
             StringBuilder debug = new StringBuilder("Unsupported field type: \n");
@@ -525,7 +525,7 @@ namespace NPOI.HWPF.Converter
             }
             logger.Log(POILogger.WARN, debug);
 
-            Range deadFieldValueSubrage = new Range(range.GetCharacterRun(
+            NPOI.HWPF.UserModel.Range deadFieldValueSubrage = new NPOI.HWPF.UserModel.Range(range.GetCharacterRun(
                     separatorMark).StartOffset + 1, range.GetCharacterRun(
                     endMark).StartOffset, range);
             //{
@@ -545,7 +545,7 @@ namespace NPOI.HWPF.Converter
         }
 
         protected Field ProcessDeadField(HWPFDocumentCore wordDocument,
-                Range charactersRange, int currentTableLevel, int startOffset,
+                NPOI.HWPF.UserModel.Range charactersRange, int currentTableLevel, int startOffset,
                 XmlElement currentBlock)
         {
             if (!(wordDocument is HWPFDocument))
@@ -578,7 +578,7 @@ namespace NPOI.HWPF.Converter
                 logger.Log(POILogger.WARN, "Unable to process document summary information: ", exc, exc);
             }
 
-            Range docRange = wordDocument.GetRange();
+            NPOI.HWPF.UserModel.Range docRange = wordDocument.GetRange();
 
             if (docRange.NumSections == 1)
             {
@@ -594,7 +594,7 @@ namespace NPOI.HWPF.Converter
         protected abstract void ProcessDocumentInformation(NPOI.HPSF.SummaryInformation summaryInformation);
 
         protected virtual void ProcessDocumentPart(HWPFDocumentCore wordDocument,
-                 Range range)
+                 NPOI.HWPF.UserModel.Range range)
         {
             for (int s = 0; s < range.NumSections; s++)
             {
@@ -634,16 +634,16 @@ namespace NPOI.HWPF.Converter
 
         protected abstract void ProcessEndnoteAutonumbered(
                 HWPFDocument wordDocument, int noteIndex, XmlElement block,
-                Range endnoteTextRange);
+                NPOI.HWPF.UserModel.Range endnoteTextRange);
 
-        protected void ProcessField(HWPFDocument wordDocument, Range parentRange,
+        protected void ProcessField(HWPFDocument wordDocument, NPOI.HWPF.UserModel.Range parentRange,
                 int currentTableLevel, Field field, XmlElement currentBlock)
         {
             switch (field.Type)
             {
                 case 37: // page reference
                     {
-                        Range firstSubrange = field.FirstSubrange(parentRange);
+                        NPOI.HWPF.UserModel.Range firstSubrange = field.FirstSubrange(parentRange);
                         if (firstSubrange != null)
                         {
                             String formula = firstSubrange.Text;
@@ -702,7 +702,7 @@ namespace NPOI.HWPF.Converter
                     }
                 case 88: // hyperlink
                     {
-                        Range firstSubrange = field.FirstSubrange(parentRange);
+                        NPOI.HWPF.UserModel.Range firstSubrange = field.FirstSubrange(parentRange);
                         if (firstSubrange != null)
                         {
                             String formula = firstSubrange.Text;
@@ -740,10 +740,10 @@ namespace NPOI.HWPF.Converter
 
         protected abstract void ProcessFootnoteAutonumbered(
                 HWPFDocument wordDocument, int noteIndex, XmlElement block,
-                Range footnoteTextRange);
+                NPOI.HWPF.UserModel.Range footnoteTextRange);
 
         protected abstract void ProcessHyperlink(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range textRange, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel,
                 String hyperlink);
 
         protected abstract void ProcessImage(XmlElement currentBlock,
@@ -760,12 +760,12 @@ namespace NPOI.HWPF.Converter
                 int noteIndex = footnotes.GetNoteIndexByAnchorPosition(characterRun.StartOffset);
                 if (noteIndex != -1)
                 {
-                    Range footnoteRange = doc.GetFootnoteRange();
+                    NPOI.HWPF.UserModel.Range footnoteRange = doc.GetFootnoteRange();
                     int rangeStartOffset = footnoteRange.StartOffset;
                     int noteTextStartOffset = footnotes.GetNoteTextStartOffSet(noteIndex);
                     int noteTextEndOffset = footnotes.GetNoteTextEndOffSet(noteIndex);
 
-                    Range noteTextRange = new Range(rangeStartOffset + noteTextStartOffset, rangeStartOffset + noteTextEndOffset, doc);
+                    NPOI.HWPF.UserModel.Range noteTextRange = new NPOI.HWPF.UserModel.Range(rangeStartOffset + noteTextStartOffset, rangeStartOffset + noteTextEndOffset, doc);
 
                     ProcessFootnoteAutonumbered(doc, noteIndex, block, noteTextRange);
                     return;
@@ -776,12 +776,12 @@ namespace NPOI.HWPF.Converter
                 int noteIndex = endnotes.GetNoteIndexByAnchorPosition(characterRun.StartOffset);
                 if (noteIndex != -1)
                 {
-                    Range endnoteRange = doc.GetEndnoteRange();
+                    NPOI.HWPF.UserModel.Range endnoteRange = doc.GetEndnoteRange();
                     int rangeStartOffset = endnoteRange.StartOffset;
                     int noteTextStartOffset = endnotes.GetNoteTextStartOffSet(noteIndex);
                     int noteTextEndOffset = endnotes.GetNoteTextEndOffSet(noteIndex);
 
-                    Range noteTextRange = new Range(rangeStartOffset + noteTextStartOffset, rangeStartOffset + noteTextEndOffset, doc);
+                    NPOI.HWPF.UserModel.Range noteTextRange = new NPOI.HWPF.UserModel.Range(rangeStartOffset + noteTextStartOffset, rangeStartOffset + noteTextEndOffset, doc);
 
                     ProcessEndnoteAutonumbered(doc, noteIndex, block, noteTextRange);
                     return;
@@ -823,7 +823,7 @@ namespace NPOI.HWPF.Converter
                 XmlElement flow);
 
         protected abstract void ProcessPageref(HWPFDocumentCore wordDocument,
-                XmlElement currentBlock, Range textRange, int currentTableLevel,
+                XmlElement currentBlock, NPOI.HWPF.UserModel.Range textRange, int currentTableLevel,
                 String pageref);
 
         protected abstract void ProcessParagraph(HWPFDocumentCore wordDocument,
@@ -831,7 +831,7 @@ namespace NPOI.HWPF.Converter
                 String bulletText);
 
         protected void ProcessParagraphes(HWPFDocumentCore wordDocument,
-                XmlElement flow, Range range, int currentTableLevel)
+                XmlElement flow, NPOI.HWPF.UserModel.Range range, int currentTableLevel)
         {
 
             ListTables listTables = wordDocument.GetListTables();
@@ -925,7 +925,7 @@ namespace NPOI.HWPF.Converter
             this.picturesManager = fileManager;
         }
 
-        protected int TryDeadField(HWPFDocumentCore wordDocument, Range range,
+        protected int TryDeadField(HWPFDocumentCore wordDocument, NPOI.HWPF.UserModel.Range range,
                 int currentTableLevel, int beginMark, XmlElement currentBlock)
         {
             int separatorMark = -1;

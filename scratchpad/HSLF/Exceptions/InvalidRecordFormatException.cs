@@ -15,30 +15,24 @@
    limitations under the License.
 ==================================================================== */
 
-namespace NPOI.HWPF.Model
+using System;
+namespace NPOI.HSLF.Exceptions
 {
-    using System;
-    public class UnhandledDataStructure
+
+    /**
+     * This exception is thrown when we try to create a record, and the
+     *  underlying data just doesn't match up
+     *
+     * @author Nick Burch
+     */
+
+    public class InvalidRecordFormatException : Exception
     {
-        byte[] _buf;
-
-        public UnhandledDataStructure(byte[] buf, int offset, int length)
+        public InvalidRecordFormatException(String s):base(s)
         {
-            //    Console.WriteLine("Yes, using my code");
-            _buf = new byte[length];
-            if (offset + length > buf.Length)
-            {
-                throw new IndexOutOfRangeException("buffer length is " + buf.Length +
-                                                    "but code is trying to read " + length + " from offset " + offset);
-            }
-            Array.Copy(buf, offset, _buf, 0, length);
-        }
-
-        internal byte[] GetBuf()
-        {
-            return _buf;
+ 
         }
     }
+
+
 }
-
-
