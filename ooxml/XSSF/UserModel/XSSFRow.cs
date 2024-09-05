@@ -286,6 +286,7 @@ namespace NPOI.XSSF.UserModel
                     _cells.Add(cell.ColumnIndex, cell);
                     sheet.OnReadCell(cell);
                 }
+                _lastKey = _cells.Keys.Max();
             }
 
             if (!row.IsSetR())
@@ -355,6 +356,7 @@ namespace NPOI.XSSF.UserModel
             }
 
             _cells[columnIndex] = xcell;
+            _lastKey = Math.Max(_lastKey, columnIndex);
             return xcell;
         }
 
@@ -422,6 +424,8 @@ namespace NPOI.XSSF.UserModel
             }
 
             _cells.Remove(cell.ColumnIndex);
+            if (cell.ColumnIndex == _lastKey)
+                _lastKey = _cells.Keys.Max();
         }
 
         /// <summary>
@@ -625,6 +629,7 @@ namespace NPOI.XSSF.UserModel
 
             // Sort CT_Cols by index asc.
             _row.c.Sort((col1, col2) => col1.r.CompareTo(col2.r));
+            _lastKey = _cells.Keys.Max();
         }
         #endregion
 
@@ -803,9 +808,11 @@ namespace NPOI.XSSF.UserModel
             return _cells.Keys.Min();
         }
 
+        private int _lastKey;
         private int GetLastKey()
         {
-            return _cells.Keys.Max();
+            return _lastKey;
+            //return _cells.Keys.Max();
         }
         #endregion
     }
